@@ -209,9 +209,9 @@ std::string downloadFile(nlohmann::json game, bool thumbnail){
 
     if (!thumbnail){
         if (thumbnail == false && outpath != ""){
-            brls::Application::notify("Image Downloaded.\nApply to a title in main menu.");
+            brls::Application::notify("Icon geladen! Setzen sie das icon im hauptmenu auf ein Spiel/App!");
         } else {
-            brls::Application::notify("Image Download Failed.");
+            brls::Application::notify("Icon konnte nicht geladen werden!");
         }
     }
     return outpath;
@@ -338,7 +338,7 @@ void frame_showOnlineTitleIcons(std::string gameId){
     rootFrame->setTitle("List of fetched icons from SteamGridDB");
     rootFrame->setIcon(BOREALIS_ASSET("icon/borealis.jpg"));
     rootFrame->getSidebar()->setThumbnail(BOREALIS_ASSET("icon/borealis.jpg"));
-    rootFrame->getSidebar()->getButton()->setLabel("Download");
+    rootFrame->getSidebar()->getButton()->setLabel("Laden");
     nlohmann::json iconList = requestIcons(gameId);
     brls::List* list = new brls::List();
 
@@ -380,7 +380,7 @@ void frame_showOnlineTitleIcons(std::string gameId){
 
 void frame_showOnlineTitles(std::string searchTerm){
     brls::AppletFrame* onlinegamelistFrame = new brls::AppletFrame(true, true);
-    onlinegamelistFrame->setTitle("Found games on steamgriddb.com");
+    onlinegamelistFrame->setTitle("Gefundene Spiele auf  steamgriddb.com");
     onlinegamelistFrame->setIcon(BOREALIS_ASSET("icon/borealis.jpg"));
     brls::List* onlinetitleList = new brls::List();
     nlohmann::json foundGames = requestGames(searchTerm);
@@ -411,7 +411,7 @@ void frame_showLocalTitles(std::string imagePath){
     nlohmann::json installedGames = getInstalledGames();
     brls::AppletFrame* gamelistFrame = new brls::AppletFrame(true, true);
     if (imagePath != ""){
-        gamelistFrame->setTitle("Choose a title to search for icons.");
+        gamelistFrame->setTitle("Wähle ein Spiel um ein passendes Icon zu suchen!");
     } else {
         gamelistFrame->setTitle("Choose a title to overwrite its icon.");
     }
@@ -454,7 +454,7 @@ void frame_showLocalIcons(){
     rootFrame->setTitle("A list of downloaded icons");
     rootFrame->setIcon(BOREALIS_ASSET("icon/borealis.jpg"));
     rootFrame->getSidebar()->setThumbnail(BOREALIS_ASSET("icon/borealis.jpg"));
-    rootFrame->getSidebar()->getButton()->setLabel("Set as icon");
+    rootFrame->getSidebar()->getButton()->setLabel("Icon setzen");
 
     brls::List* list = new brls::List();
 
@@ -491,7 +491,7 @@ int main(int argc, char* argv[])
 
     brls::Logger::setLogLevel(brls::LogLevel::DEBUG);
     i18n::loadTranslations();
-    if (!brls::Application::init("main/name"_i18n))
+    if (!brls::Application::init("IconGrabber Übersetzt von TT-ghost_semir"_i18n))
     {
         brls::Logger::error("Unable to init Borealis application");
         return EXIT_FAILURE;
@@ -499,16 +499,16 @@ int main(int argc, char* argv[])
 
     nlohmann::json config = loadConfig();
     brls::TabFrame* rootFrame = new brls::TabFrame();
-    rootFrame->setTitle("main/name"_i18n);
+    rootFrame->setTitle("IconGrabber Übersetzt von TT-ghost_semir"_i18n);
     rootFrame->setIcon(BOREALIS_ASSET("icon/borealis.jpg"));
 
     
 
 
     brls::List* settingsTab = new brls::List();
-    brls::InputListItem* settingApiToken = new brls::InputListItem("Set the API token", config["api_token"], "Enter your steamgriddb.com api key", "Get it on steamgriddb.com", 32);
-    brls::SelectListItem* settingStyles = new brls::SelectListItem("Choose icon style", allowedStyles, config["style_id"]);
-    brls::SelectListItem* settingResolution = new brls::SelectListItem("Choose icon resolution", allowedImageResolutions, config["resolution_id"], "All icons will be resized. Default Switch icons are 1:1 (512x512 or 1024x1024) while vertical icon themes should use 2:3 (600x900).");
+    brls::InputListItem* settingApiToken = new brls::InputListItem("Setzten sie ihren API Schlüssel", config["api_token"], "Enter your steamgriddb.com api key", "Holen sie sich ein Schlüssel bei steamgriddb.com", 32);
+    brls::SelectListItem* settingStyles = new brls::SelectListItem("Wählen sie den Style für die Icons", allowedStyles, config["style_id"]);
+    brls::SelectListItem* settingResolution = new brls::SelectListItem("Wählen sie die Größe der Icons", allowedImageResolutions, config["resolution_id"], "All Icons werden in der Größe angepasst. Standardmäßig sind Switch-Symbole 1:1 (512x512 oder 1024x1024), während vertikale Themes 2:3 (600x900) verwenden sollten!");
     settingApiToken->getClickEvent()->subscribe([&settingApiToken](brls::View* view) {
         nlohmann::json c = loadConfig();
         c["api_token"] = settingApiToken->getValue();
@@ -527,8 +527,8 @@ int main(int argc, char* argv[])
 
 
     brls::List* searchTab = new brls::List();
-    brls::InputListItem* browseByName = new brls::InputListItem("Search for a game by name", "", "Enter the name of a game to search icons", "", 32);
-    brls::ListItem* browseByTitle = new brls::ListItem("Search by installed titles");
+    brls::InputListItem* browseByName = new brls::InputListItem("Suche Icons für ein Spiel über den Namen", "", "Enter the name of a game to search icons", "", 32);
+    brls::ListItem* browseByTitle = new brls::ListItem("Suche Icons für Installierte Spiele");
     browseByName->getClickEvent()->subscribe([&browseByName](brls::View* view) {
         std::string text = browseByName->getValue();
         if (text == "")
@@ -542,8 +542,8 @@ int main(int argc, char* argv[])
 
 
     brls::List* localIcons = new brls::List();
-    brls::ListItem* browseIcons = new brls::ListItem("Browse downloaded Icons");
-    brls::ListItem* deleteIconCache = new brls::ListItem("Delete Imagecache", "This will not delete already applied icons.");
+    brls::ListItem* browseIcons = new brls::ListItem("Durchsuche Geladende Icons");
+    brls::ListItem* deleteIconCache = new brls::ListItem("Leeren des Icons Ordner", "Dies löscht nicht bereits festgelegte Icons");
 
     browseIcons->getClickEvent()->subscribe([=](brls::View* view) {
         frame_showLocalIcons();
@@ -574,10 +574,10 @@ int main(int argc, char* argv[])
     localIcons->addView(browseIcons);
     localIcons->addView(deleteIconCache);
 
-    rootFrame->addTab("Settings", settingsTab);
+    rootFrame->addTab("Einstellungen", settingsTab);
     rootFrame->addSeparator();
-    rootFrame->addTab("Search Icons", searchTab);
-    rootFrame->addTab("Downloaded Icons", localIcons);
+    rootFrame->addTab("Suche Icons", searchTab);
+    rootFrame->addTab("geladene Icons", localIcons);
 
     
 
