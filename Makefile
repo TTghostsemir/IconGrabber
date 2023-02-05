@@ -44,8 +44,8 @@ DATA		:=	data
 ICON		:=	resources/icon/borealis.jpg
 INCLUDES	:=	example
 APP_TITLE	:=	IconGrabber
-APP_AUTHOR	:=	Slluxx
-APP_VERSION	:=	1.0.0
+APP_AUTHOR	:=	Slluxx forked by TT-ghost_semir
+APP_VERSION	:=	1.1.1
 
 ROMFS				:=	resources
 BOREALIS_PATH		:=	.
