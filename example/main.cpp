@@ -28,12 +28,12 @@ using namespace i18n::literals; // for _i18n
 std::string configPath = "sdmc:/config/icongrabber/config.json";
 
 std::vector<std::string> allowedStyles = {
-    "all styles",
-    "alternate",
-    "blurred",
-    "white_logo",
-    "material",
-    "no_logo"
+    "Alle Stile",
+    "Alternative",
+    "Verschwommen",
+    "Weißes Logo",
+    "Material",
+    "Kein Logo"
 };
 
 std::vector<std::string> allowedImageResolutions = {
@@ -48,14 +48,14 @@ std::vector<std::string> allowedImageResolutions = {
 
 nlohmann::json loadConfig(){
     if (std::filesystem::exists(configPath.c_str())){
-        brls::Logger::info("Loading config from file");
+        brls::Logger::info("Konfiguration aus Datei laden!");
         std::ifstream i(configPath.c_str());
         nlohmann::json j;
         i >> j;
         return j;
     }
     else{
-        brls::Logger::info("using default config");
+        brls::Logger::info("Standardkonfiguration verwenden!");
         nlohmann::json config;
         config["api_token"] = "";
         config["style_id"] = 0;
@@ -67,12 +67,12 @@ nlohmann::json loadConfig(){
 void saveConfig(nlohmann::json config){
     if (!std::filesystem::exists("sdmc:/config/icongrabber/"))
         if(!std::filesystem::create_directories("sdmc:/config/icongrabber/"))
-            brls::Logger::info("Could not create directory");
+            brls::Logger::info("Das Verzeichnis konnte nicht erstellt werden!");
 
     std::ofstream o(configPath.c_str());
     o << std::setw(4) << config << std::endl;
-    brls::Logger::info("saved config");
-    brls::Application::notify("Saved");
+    brls::Logger::info("gespeicherte Konfiguration!");
+    brls::Application::notify("Gespeichert!");
 }
 
 std::string formatApplicationId(u64 ApplicationId)
@@ -86,30 +86,30 @@ void overwriteIcon(std::string tid, std::string imagePath){
     int width, height, channels;
     unsigned char *img = stbi_load(imagePath.c_str(), &width, &height, &channels, 0);
     if(img == NULL) {
-        brls::Logger::info("Image could not be loaded");
+        brls::Logger::info("Das Bild konnte nicht geladen werden!");
     } else {
-        brls::Logger::info("Image is loaded");
+        brls::Logger::info("Das Bild ist geladen!");
         unsigned char *data = NULL;
         data = (unsigned char * )malloc( 256 * 256 * 3 * sizeof(unsigned char));
 
         if(stbir_resize_uint8(img, width, height, 0, data, 256, 256, 256* 3, 3)){
-            brls::Logger::info("resize good");
+            brls::Logger::info("Größe ist gut angepasst!");
         } else {
-            brls::Logger::info("resize bad");
+            brls::Logger::info("Größe ist nicht gut angepasst!");
         }
 
         std::string outPath = "sdmc:/atmosphere/contents/";
         outPath = outPath.append(tid);
         if(!std::filesystem::create_directories(outPath))
-            brls::Logger::info("Could not create directory");
+            brls::Logger::info("Das Verzeichnis konnte nicht erstellt werden!");
         outPath = outPath.append("/icon.jpg");
 
         brls::Logger::info(outPath);
 
         if(stbi_write_jpg(outPath.c_str(), 256, 256, channels, data, 100)){
-            brls::Application::notify("Icon saved");
+            brls::Application::notify("Icon Gesichert!");
         } else {
-            brls::Application::notify("Icon could not be saved");
+            brls::Application::notify("Icon konnte nicht Gesichert werden!");
         };
     }
 }
@@ -176,7 +176,7 @@ std::string downloadFile(nlohmann::json game, bool thumbnail){
 
     if (!std::filesystem::exists(outpath))
         if(!std::filesystem::create_directories(outpath))
-            brls::Logger::info("Could not create directory");
+            brls::Logger::info("Das Verzeichnis konnte nicht erstellt werden!");
 
     
     std::string filename = "";
@@ -343,11 +343,11 @@ void frame_showOnlineTitleIcons(std::string gameId){
     brls::List* list = new brls::List();
 
     brls::Logger::info(iconList.dump());
-    brls::Logger::info(iconList["success"].dump());
+    brls::Logger::info(iconList["Erfolgreich"].dump());
     brls::Logger::info(std::to_string(iconList["data"].size()));
 
     if (iconList["success"].get<bool>() && iconList["data"].size() != 0){
-        brls::Logger::info("iconlist success");
+        brls::Logger::info("Iconliste Erfolgreich");
         for (auto it : iconList["data"])
         {
             brls::Logger::info(it["id"].dump());
@@ -363,14 +363,14 @@ void frame_showOnlineTitleIcons(std::string gameId){
                 });
             } else {
                 rootFrame->getSidebar()->setThumbnail(BOREALIS_ASSET("icon/borealis.jpg"));
-                rootFrame->getSidebar()->setTitle("Could not fetch thumbnail");
+                rootFrame->getSidebar()->setTitle("Vorschaubild konnte nicht abgerufen werden");
                 rootFrame->getSidebar()->setSubtitle("");
             }
         });
             list->addView(litem);
         }
     } else {
-        brls::Logger::info("error");
+        brls::Logger::info("Fehler");
         brls::ListItem* litem = new brls::ListItem("Kein Icon gefunden!", "Wählen Sie vielleicht einen anderen IconStyle oder eine andere größe!");
         list->addView(litem);
     }
@@ -385,7 +385,7 @@ void frame_showOnlineTitles(std::string searchTerm){
     brls::List* onlinetitleList = new brls::List();
     nlohmann::json foundGames = requestGames(searchTerm);
     brls::Logger::info(foundGames.dump());
-    brls::Logger::info(foundGames["success"].dump());
+    brls::Logger::info(foundGames["Erfolgreich"].dump());
     brls::Logger::info(foundGames["data"].dump());
     if (foundGames["success"].get<bool>() && foundGames["data"].size() != 0){
         for (auto it : foundGames["data"])
@@ -451,7 +451,7 @@ void frame_showLocalTitles(std::string imagePath){
 
 void frame_showLocalIcons(){
     brls::ThumbnailFrame* rootFrame = new brls::ThumbnailFrame();
-    rootFrame->setTitle("A list of downloaded icons");
+    rootFrame->setTitle("Eine Liste von Alle Geladene Icons");
     rootFrame->setIcon(BOREALIS_ASSET("icon/borealis.jpg"));
     rootFrame->getSidebar()->setThumbnail(BOREALIS_ASSET("icon/borealis.jpg"));
     rootFrame->getSidebar()->getButton()->setLabel("Icon setzen");
@@ -476,7 +476,7 @@ void frame_showLocalIcons(){
     }
 
     if (count == 0) {
-        brls::ListItem* litem = new brls::ListItem("No files found.");
+        brls::ListItem* litem = new brls::ListItem("Keine Datei gefunden!");
         list->addView(litem);
     }
 
@@ -493,7 +493,7 @@ int main(int argc, char* argv[])
     i18n::loadTranslations();
     if (!brls::Application::init("IconGrabber Übersetzt von TT-ghost_semir"_i18n))
     {
-        brls::Logger::error("Unable to init Borealis application");
+        brls::Logger::error("Borealis-Anwendung kann nicht gestartet werden!");
         return EXIT_FAILURE;
     }
 
@@ -506,7 +506,7 @@ int main(int argc, char* argv[])
 
 
     brls::List* settingsTab = new brls::List();
-    brls::InputListItem* settingApiToken = new brls::InputListItem("Setzten sie ihren API Schlüssel", config["api_token"], "Enter your steamgriddb.com api key", "Holen sie sich ein Schlüssel bei steamgriddb.com", 32);
+    brls::InputListItem* settingApiToken = new brls::InputListItem("Setzten sie ihren API Schlüssel", config["api_token"], "Geben sie hier ihr steamgriddb.com API Schlüssel ein!", "Holen sie sich ein Schlüssel bei steamgriddb.com", 32);
     brls::SelectListItem* settingStyles = new brls::SelectListItem("Wählen sie den Style für die Icons", allowedStyles, config["style_id"]);
     brls::SelectListItem* settingResolution = new brls::SelectListItem("Wählen sie die Größe der Icons", allowedImageResolutions, config["resolution_id"], "All Icons werden in der Größe angepasst. Standardmäßig sind Switch-Symbole 1:1 (512x512 oder 1024x1024), während vertikale Themes 2:3 (600x900) verwenden sollten!");
     settingApiToken->getClickEvent()->subscribe([&settingApiToken](brls::View* view) {
@@ -554,7 +554,7 @@ int main(int argc, char* argv[])
         if (std::filesystem::remove_all("sdmc:/gameIcons/thumbnails/"))
             std::filesystem::create_directory("sdmc:/gameIcons/thumbnails/");
 
-        brls::Application::notify("Done");
+        brls::Application::notify("Fertig!");
     });
 
 
