@@ -371,7 +371,7 @@ void frame_showOnlineTitleIcons(std::string gameId){
         }
     } else {
         brls::Logger::info("error");
-        brls::ListItem* litem = new brls::ListItem("No icon found", "Maybe select a different icon style or resolution.");
+        brls::ListItem* litem = new brls::ListItem("Kein Icon gefunden!", "Wählen Sie vielleicht einen anderen IconStyle oder eine andere größe!");
         list->addView(litem);
     }
     rootFrame->setContentView(list);
@@ -397,8 +397,8 @@ void frame_showOnlineTitles(std::string searchTerm){
             onlinetitleList->addView(litem);
         }
     } else {
-        brls::Logger::info("error");
-        brls::ListItem* litem = new brls::ListItem("No game found");
+        brls::Logger::info("Fehler!");
+        brls::ListItem* litem = new brls::ListItem("Kein Spiel gefunden!");
         onlinetitleList->addView(litem);
     }
 
@@ -413,7 +413,7 @@ void frame_showLocalTitles(std::string imagePath){
     if (imagePath != ""){
         gamelistFrame->setTitle("Wähle ein Spiel um ein passendes Icon zu suchen!");
     } else {
-        gamelistFrame->setTitle("Choose a title to overwrite its icon.");
+        gamelistFrame->setTitle("Wähle ein Spiel um Passende Icons auszuwählen und zu laden!");
     }
         
     
@@ -433,12 +433,12 @@ void frame_showLocalTitles(std::string imagePath){
             
         });
         if(imagePath == ""){
-            litem->registerAction("Delete current icon", brls::Key::X, [=] { 
+            litem->registerAction("Lösche Aktuelles Icon", brls::Key::X, [=] { 
                 std::string outPath = "sdmc:/atmosphere/contents/";
                 outPath = outPath.append(tid);
                 outPath = outPath.append("/icon.jpg");
                 std::remove(outPath.c_str());
-                brls::Application::notify("Icon deleted");
+                brls::Application::notify("Icon gelöscht!");
                 return true;
             });
         }
@@ -527,7 +527,7 @@ int main(int argc, char* argv[])
 
 
     brls::List* searchTab = new brls::List();
-    brls::InputListItem* browseByName = new brls::InputListItem("Suche Icons für ein Spiel über den Namen", "", "Enter the name of a game to search icons", "", 32);
+    brls::InputListItem* browseByName = new brls::InputListItem("Suche Icons für ein Spiel über den Namen", "", "Gebe den namen ein vom spiel um passende Icons zu Suchen!", "", 32);
     brls::ListItem* browseByTitle = new brls::ListItem("Suche Icons für Installierte Spiele");
     browseByName->getClickEvent()->subscribe([&browseByName](brls::View* view) {
         std::string text = browseByName->getValue();
@@ -577,7 +577,7 @@ int main(int argc, char* argv[])
     rootFrame->addTab("Einstellungen", settingsTab);
     rootFrame->addSeparator();
     rootFrame->addTab("Suche Icons", searchTab);
-    rootFrame->addTab("geladene Icons", localIcons);
+    rootFrame->addTab("Geladene Icons", localIcons);
 
     
 
