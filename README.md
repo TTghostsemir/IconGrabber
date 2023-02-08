@@ -1,11 +1,11 @@
 # Icon Grabber
 
-REQUIRED: An API key from steamgriddb.com
+ERFORDERLICH: Ein API-Schlüssel von steamgriddb.com
 
-This is IconGrabber. A homebrew that one can probably best describe as an unofficial steamgriddb.com client for the Nintendo Switch. You can search for games and then preview and download icons that you want. After that you can apply any icon to any installed title of your switch and replace the original. In order to do that, you need to use [sys-tweak](https://gbatemp.net/threads/custom-game-icons-tutorial-and-sharing-hub-no-forwarders.574675/) though.
+Dies ist IconGrabber. Ein Homebrew, das man wohl am besten als inoffiziellen steamgriddb.com-Client für die Nintendo Switch beschreiben kann. Du kannst nach Spielen suchen und dann die gewünschten Icons in der Vorschau anzeigen und herunterladen. Danach kann man jedes Icon auf jeden installierten Titel der Switch anwenden und das Original ersetzen. Dazu müssen Sie allerdings [sys-tweak](https://gbatemp.net/threads/custom-game-icons-tutorial-and-sharing-hub-no-forwarders.574675/) verwenden ist in der ZIP Schon drin.
 
 
-The Switch default icons are 256x256 but the tool will automatically resize anything to fit. This means you can use 512x512 or 1024x1024 icons (as long as the ratio is 1:1). Once you applied a custom icon to a game, you need to restart the console for it to take effect.
+Die Standardsymbole von Switch sind 256x256, aber das Tool passt die Größe automatisch an. Das bedeutet, dass Sie 512x512- oder 1024x1024-Symbole verwenden können (solange das Verhältnis 1:1 ist). Sobald Sie ein benutzerdefiniertes Symbol auf ein Spiel angewendet haben, müssen Sie die Konsole neu starten, damit es wirksam wird.
 
-This tool also works for vertical icon themes.
+Dieses Tool funktioniert auch für vertikale Icon-Themen.
 
