@@ -28,12 +28,12 @@ using namespace i18n::literals; // for _i18n
 std::string configPath = "sdmc:/config/icongrabber/config.json";
 
 std::vector<std::string> allowedStyles = {
-    "Alle Stile",
-    "Alternative",
-    "Verschwommen",
-    "Weißes Logo",
-    "Material",
-    "Kein Logo"
+    "all styles",
+    "alternate",
+    "blurred",
+    "white_logo",
+    "material",
+    "no_logo"
 };
 
 std::vector<std::string> allowedImageResolutions = {
