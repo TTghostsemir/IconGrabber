@@ -491,7 +491,7 @@ int main(int argc, char* argv[])
 
     brls::Logger::setLogLevel(brls::LogLevel::DEBUG);
     i18n::loadTranslations();
-    if (!brls::Application::init("IconGrabber Übersetzt von TT-ghost_semir"_i18n))
+    if (!brls::Application::init("IconGrabber"_i18n))
     {
         brls::Logger::error("Borealis-Anwendung kann nicht gestartet werden!");
         return EXIT_FAILURE;
