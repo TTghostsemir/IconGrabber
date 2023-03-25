@@ -1,8 +1,8 @@
 {
     "hints": {
         "ok": "OK",
-        "back": "Back",
-        "exit": "Exit"
+        "back": "Zurück",
+        "exit": "Beenden"
     },
 
     "crash_frame": {

@@ -1,13 +1,13 @@
 {
-    "open": "Open popup",
+    "open": "Öffne Popup",
 
-    "red": "Red",
-    "green": "Green",
-    "blue": "Blue",
+    "red": "Rot",
+    "green": "Grün",
+    "blue": "Blau",
 
-    "title": "Popup title",
+    "title": "Popup Title",
     "subtitle": {
-        "left": "Subtitle left",
-        "right": "Subtitle right"
+        "left": "Untertitle Links",
+        "right": "Untertitle Rechts"
     }
 }

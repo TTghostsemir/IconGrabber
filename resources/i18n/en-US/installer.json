@@ -1,18 +1,18 @@
 {
-    "open": "Open example installer",
+    "open": "Beispiel-Installationsprogramm öffnen",
 
-    "title": "My great installer",
+    "title": "Mein toller Installateur",
 
     "stage1": {
-        "text": "Here, you would normally do useful things",
-        "button": "Go to step 2"
+        "text": "Hier würden Sie normalerweise nützliche Dinge tun",
+        "button": "Geh zu Schritt 2"
     },
 
     "stage2": {
-        "text": "Example loading display"
+        "text": "Beispiel Lade display"
     },
 
     "stage3": {
-        "button": "Finish"
+        "button": "Fertig!"
     }
 }
